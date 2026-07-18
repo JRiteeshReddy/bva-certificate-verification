@@ -42,9 +42,14 @@ export default function VerificationPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const idFromUrl = params.get('id');
-    if (idFromUrl) {
-      setCertId(idFromUrl);
-      verifyId(idFromUrl);
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    const idFromPath = pathParts.length > 0 ? decodeURIComponent(pathParts[0]) : null;
+    
+    const initialId = idFromUrl || idFromPath;
+
+    if (initialId) {
+      setCertId(initialId);
+      verifyId(initialId);
     }
   }, [verifyId]);
 
